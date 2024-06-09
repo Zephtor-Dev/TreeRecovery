@@ -15,18 +15,16 @@
   "icon": "assets/treerecovery/icon.png",
   "environment": "server",
   "entrypoints": {
-    "client": [
+    "server": [
       {
-        "value": "com.zephtor.treerecovery.TreeRecovery",
-        "adapter": "kotlin"
+        "value": "com.zephtor.treerecovery.TreeRecovery"
       }
     ]
   },
   "depends": {
     "fabricloader": ">=0.15.11",
-    "minecraft": "~1.20.4",
+    "minecraft": "~1.14.4",
     "java": ">=17",
-    "fabric-api": "*",
-    "fabric-language-kotlin": ">=1.9.23"
+    "fabric-api": "*"
   }
 }
