@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "unchecked", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored"})
 public class TreeRecovery implements ModInitializer {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -161,7 +161,6 @@ public class TreeRecovery implements ModInitializer {
         return newState;
     }
 
-    @SuppressWarnings("unchecked")
     private <T extends Comparable<T>, V extends T> BlockState with(BlockState state, Property<T> property, Comparable<?> value) {
         return state.with(property, (V) value);
     }
@@ -239,7 +238,6 @@ public class TreeRecovery implements ModInitializer {
         UNKNOWN
     }
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private static class Config {
         List<String> axes;
         List<String> strippedLogs;
