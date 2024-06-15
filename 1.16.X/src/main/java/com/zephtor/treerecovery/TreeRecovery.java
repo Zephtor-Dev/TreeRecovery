@@ -192,23 +192,65 @@ public class TreeRecovery implements ModInitializer {
     }
 
     private BlockState getNormalType(BlockState blockState) {
-        if (blockState.getBlock() == Blocks.STRIPPED_OAK_LOG) return Blocks.OAK_LOG.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_SPRUCE_LOG) return Blocks.SPRUCE_LOG.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_BIRCH_LOG) return Blocks.BIRCH_LOG.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_JUNGLE_LOG) return Blocks.JUNGLE_LOG.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_ACACIA_LOG) return Blocks.ACACIA_LOG.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_DARK_OAK_LOG) return Blocks.DARK_OAK_LOG.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_OAK_WOOD) return Blocks.OAK_WOOD.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_SPRUCE_WOOD) return Blocks.SPRUCE_WOOD.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_BIRCH_WOOD) return Blocks.BIRCH_WOOD.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_JUNGLE_WOOD) return Blocks.JUNGLE_WOOD.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_ACACIA_WOOD) return Blocks.ACACIA_WOOD.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_DARK_OAK_WOOD) return Blocks.DARK_OAK_WOOD.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_WARPED_STEM) return Blocks.WARPED_STEM.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_CRIMSON_STEM) return Blocks.CRIMSON_STEM.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_WARPED_HYPHAE) return Blocks.WARPED_HYPHAE.getDefaultState();
-        if (blockState.getBlock() == Blocks.STRIPPED_CRIMSON_HYPHAE) return Blocks.CRIMSON_HYPHAE.getDefaultState();
-        return blockState;
+        return switch (getStrippedBlockType(blockState.getBlock())) {
+            case STRIPPED_OAK_LOG -> Blocks.OAK_LOG.getDefaultState();
+            case STRIPPED_SPRUCE_LOG -> Blocks.SPRUCE_LOG.getDefaultState();
+            case STRIPPED_BIRCH_LOG -> Blocks.BIRCH_LOG.getDefaultState();
+            case STRIPPED_JUNGLE_LOG -> Blocks.JUNGLE_LOG.getDefaultState();
+            case STRIPPED_ACACIA_LOG -> Blocks.ACACIA_LOG.getDefaultState();
+            case STRIPPED_DARK_OAK_LOG -> Blocks.DARK_OAK_LOG.getDefaultState();
+            case STRIPPED_OAK_WOOD -> Blocks.OAK_WOOD.getDefaultState();
+            case STRIPPED_SPRUCE_WOOD -> Blocks.SPRUCE_WOOD.getDefaultState();
+            case STRIPPED_BIRCH_WOOD -> Blocks.BIRCH_WOOD.getDefaultState();
+            case STRIPPED_JUNGLE_WOOD -> Blocks.JUNGLE_WOOD.getDefaultState();
+            case STRIPPED_ACACIA_WOOD -> Blocks.ACACIA_WOOD.getDefaultState();
+            case STRIPPED_DARK_OAK_WOOD -> Blocks.DARK_OAK_WOOD.getDefaultState();
+            case STRIPPED_WARPED_STEM -> Blocks.WARPED_STEM.getDefaultState();
+            case STRIPPED_CRIMSON_STEM -> Blocks.CRIMSON_STEM.getDefaultState();
+            case STRIPPED_WARPED_HYPHAE -> Blocks.WARPED_HYPHAE.getDefaultState();
+            case STRIPPED_CRIMSON_HYPHAE -> Blocks.CRIMSON_HYPHAE.getDefaultState();
+            default -> blockState;
+        };
+    }
+
+    private StrippedBlockType getStrippedBlockType(Block block) {
+        if (block == Blocks.STRIPPED_OAK_LOG) return StrippedBlockType.STRIPPED_OAK_LOG;
+        if (block == Blocks.STRIPPED_SPRUCE_LOG) return StrippedBlockType.STRIPPED_SPRUCE_LOG;
+        if (block == Blocks.STRIPPED_BIRCH_LOG) return StrippedBlockType.STRIPPED_BIRCH_LOG;
+        if (block == Blocks.STRIPPED_JUNGLE_LOG) return StrippedBlockType.STRIPPED_JUNGLE_LOG;
+        if (block == Blocks.STRIPPED_ACACIA_LOG) return StrippedBlockType.STRIPPED_ACACIA_LOG;
+        if (block == Blocks.STRIPPED_DARK_OAK_LOG) return StrippedBlockType.STRIPPED_DARK_OAK_LOG;
+        if (block == Blocks.STRIPPED_OAK_WOOD) return StrippedBlockType.STRIPPED_OAK_WOOD;
+        if (block == Blocks.STRIPPED_SPRUCE_WOOD) return StrippedBlockType.STRIPPED_SPRUCE_WOOD;
+        if (block == Blocks.STRIPPED_BIRCH_WOOD) return StrippedBlockType.STRIPPED_BIRCH_WOOD;
+        if (block == Blocks.STRIPPED_JUNGLE_WOOD) return StrippedBlockType.STRIPPED_JUNGLE_WOOD;
+        if (block == Blocks.STRIPPED_ACACIA_WOOD) return StrippedBlockType.STRIPPED_ACACIA_WOOD;
+        if (block == Blocks.STRIPPED_DARK_OAK_WOOD) return StrippedBlockType.STRIPPED_DARK_OAK_WOOD;
+        if (block == Blocks.STRIPPED_WARPED_STEM) return StrippedBlockType.STRIPPED_WARPED_STEM;
+        if (block == Blocks.STRIPPED_CRIMSON_STEM) return StrippedBlockType.STRIPPED_CRIMSON_STEM;
+        if (block == Blocks.STRIPPED_WARPED_HYPHAE) return StrippedBlockType.STRIPPED_WARPED_HYPHAE;
+        if (block == Blocks.STRIPPED_CRIMSON_HYPHAE) return StrippedBlockType.STRIPPED_CRIMSON_HYPHAE;
+        return StrippedBlockType.UNKNOWN;
+    }
+
+    private enum StrippedBlockType {
+        STRIPPED_OAK_LOG,
+        STRIPPED_SPRUCE_LOG,
+        STRIPPED_BIRCH_LOG,
+        STRIPPED_JUNGLE_LOG,
+        STRIPPED_ACACIA_LOG,
+        STRIPPED_DARK_OAK_LOG,
+        STRIPPED_OAK_WOOD,
+        STRIPPED_SPRUCE_WOOD,
+        STRIPPED_BIRCH_WOOD,
+        STRIPPED_JUNGLE_WOOD,
+        STRIPPED_ACACIA_WOOD,
+        STRIPPED_DARK_OAK_WOOD,
+        STRIPPED_WARPED_STEM,
+        STRIPPED_CRIMSON_STEM,
+        STRIPPED_WARPED_HYPHAE,
+        STRIPPED_CRIMSON_HYPHAE,
+        UNKNOWN
     }
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")

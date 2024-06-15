@@ -3,7 +3,7 @@ plugins {
     id ("fabric-loom")
 }
 
-val name: String = "TreeRecovery"
+val modName: String = "TreeRecovery"
 version = "1.14"
 
 repositories {
@@ -34,6 +34,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 tasks.named<Jar>("jar") {
-    archiveFileName.set("$name-${project.version}.jar")
+    archiveFileName.set("$modName-${project.version}.jar")
     archiveClassifier.set("")
 }
