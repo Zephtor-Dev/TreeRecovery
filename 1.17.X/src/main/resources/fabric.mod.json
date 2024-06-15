@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "treerecovery",
+  "version": "${version}",
+  "name": "TreeRecovery",
+  "description": "Restore stripped logs to their original state with ease.",
+  "authors": [
+    "Ruxy"
+  ],
+  "contact": {
+    "homepage": "https://github.com/KT-Ruxy/TreeRecovery",
+    "sources": "https://github.com/KT-Ruxy/TreeRecovery"
+  },
+  "license": "MIT",
+  "icon": "assets/treerecovery/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "server": [
+      {
+        "value": "com.zephtor.treerecovery.TreeRecovery"
+      }
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "~1.17.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
