@@ -1,3 +1,22 @@
-//This is a dummy file
-// generated to ensure that each module is properly managed.
-// It will not be used in the future
+plugins {
+    kotlin("jvm")
+    id("fabric-loom") apply false
+}
+
+repositories {
+    mavenCentral()
+}
+
+allprojects {
+    group = "com.zephtor"
+    version = "1.0.0"
+}
+
+subprojects {
+    apply(plugin = "fabric-loom")
+    apply(plugin = "kotlin")
+}
+
+tasks.create("buildAll") {
+    dependsOn(":1.14.X:remapJar", ":1.15.X:remapJar")
+}

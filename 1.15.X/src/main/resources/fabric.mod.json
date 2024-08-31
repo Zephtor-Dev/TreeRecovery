@@ -16,9 +16,7 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      {
-        "value": "com.zephtor.treerecovery.TreeRecovery"
-      }
+      "com.zephtor.treerecovery.TreeRecovery"
     ]
   },
   "depends": {

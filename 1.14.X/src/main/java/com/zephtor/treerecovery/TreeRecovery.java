@@ -3,7 +3,7 @@ package com.zephtor.treerecovery;
 import com.google.gson.Gson;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -38,7 +38,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @SuppressWarnings({"unused", "unchecked", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored"})
-public class TreeRecovery implements ModInitializer {
+public class TreeRecovery implements DedicatedServerModInitializer {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final Set<Item> axes = new HashSet<>();
@@ -46,7 +46,7 @@ public class TreeRecovery implements ModInitializer {
     private final Set<Block> strippedWoods = new HashSet<>();
 
     @Override
-    public void onInitialize() {
+    public void onInitializeServer() {
         LOGGER.info("TreeRecovery Mod initializing");
         ServerLifecycleEvents.SERVER_STARTING.register(this::generateConfig);
         ServerLifecycleEvents.SERVER_STARTING.register(this::loadConfig);
