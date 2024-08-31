@@ -16,12 +16,12 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      "com.zephtor.treerecovery.TreeRecovery"
+
     ]
   },
   "depends": {
     "fabricloader": ">=0.16.3",
-    "minecraft": "~1.15",
+    "minecraft": "~1.20.5",
     "java": ">=17",
     "fabric-api": "*"
   }

@@ -2,9 +2,8 @@ package com.zephtor.treerecovery;
 
 import com.google.gson.Gson;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
@@ -14,17 +13,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -76,15 +75,15 @@ public class TreeRecovery implements DedicatedServerModInitializer {
                 Config config = gson.fromJson(Files.newBufferedReader(configFile.toPath()), Config.class);
                 axes.clear();
                 for (String id : config.axes) {
-                    axes.add(Registry.ITEM.get(new Identifier(id)));
+                    axes.add(Registries.ITEM.get(new Identifier(id)));
                 }
                 strippedLogs.clear();
                 for (String id : config.strippedLogs) {
-                    strippedLogs.add(Registry.BLOCK.get(new Identifier(id)));
+                    strippedLogs.add(Registries.BLOCK.get(new Identifier(id)));
                 }
                 strippedWoods.clear();
                 for (String id : config.strippedWoods) {
-                    strippedWoods.add(Registry.BLOCK.get(new Identifier(id)));
+                    strippedWoods.add(Registries.BLOCK.get(new Identifier(id)));
                 }
             } catch (IOException e) {
                 LOGGER.error("Failed to load config", e);
@@ -110,26 +109,28 @@ public class TreeRecovery implements DedicatedServerModInitializer {
     }
 
     private void registerCommands() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("treerecovery")
-                .then(CommandManager.literal("reload").executes(this::reloadConfig))
-                .then(CommandManager.literal("version").executes(this::showVersion))
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(CommandManager.literal("treerecovery")
+                .then(CommandManager.literal("reload")
+                        .executes(this::reloadConfig))
+                .then(CommandManager.literal("version")
+                        .executes(this::showVersion))
         ));
     }
 
-    private int reloadConfig(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private int reloadConfig(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
         PlayerEntity player = source.getPlayer();
         if (player != null && source.hasPermissionLevel(4)) {
-            loadConfig(source.getMinecraftServer());
-            player.sendMessage(new LiteralText("TreeRecovery configuration reloaded."));
+            loadConfig(source.getServer());
+            player.sendMessage(Text.of("TreeRecovery configuration reloaded."), false);
         } else {
-            source.sendError(new LiteralText("You do not have permission to use this command."));
+            source.sendError(Text.of("You do not have permission to use this command."));
         }
         return 1;
     }
 
     private int showVersion(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new LiteralText("TreeRecovery Mod Version 1.0.0"), false);
+        context.getSource().sendFeedback(Text.of("TreeRecovery Mod Version 1.0.0"), false);
         return 1;
     }
 

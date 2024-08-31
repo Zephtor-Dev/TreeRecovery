@@ -11,6 +11,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/1.14.X" />
             <option value="$PROJECT_DIR$/1.15.X" />
+            <option value="$PROJECT_DIR$/1.16.X" />
+            <option value="$PROJECT_DIR$/1.17.X" />
+            <option value="$PROJECT_DIR$/1.18.X" />
+            <option value="$PROJECT_DIR$/1.19.X" />
+            <option value="$PROJECT_DIR$/1.20.X-4" />
+            <option value="$PROJECT_DIR$/1.20.X-6" />
           </set>
         </option>
       </GradleProjectSettings>

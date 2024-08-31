@@ -121,7 +121,7 @@ public class TreeRecovery implements DedicatedServerModInitializer {
         PlayerEntity player = source.getPlayer();
         if (player != null && source.hasPermissionLevel(4)) {
             loadConfig(source.getMinecraftServer());
-            player.sendMessage(new LiteralText("TreeRecovery configuration reloaded."));
+            player.sendMessage(new LiteralText("TreeRecovery configuration reloaded."), false);
         } else {
             source.sendError(new LiteralText("You do not have permission to use this command."));
         }
